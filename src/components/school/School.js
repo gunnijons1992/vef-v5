@@ -48,18 +48,14 @@ export default class School extends Component {
                 return  (
                 <li key={i}>
                 <h3>{item.heading}</h3>
-                {data.school.departments.tests.map((item, i) =>  {
-                  return  (
-                  <Department
-              course={item.tests[i].course}
+                <Department
+              course={item.tests.course}
               name={item.tests[i].name}
               students={item.tests[i].students}
               date={item.tests[i].date}
               visible={this.state.visibleNote === svid.id}
               onHeaderClick={(this.onHeaderClick(svid.id))}
-              />
-            );
-            })}
+            />
             </li>
           );
         })}
