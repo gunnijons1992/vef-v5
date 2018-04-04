@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-
 import App from './App';
+
+//import { createStore, applyMiddleware } from 'redux';
+
 import './index.css';
+import ScrollToTop from './ScrollToTop';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <ScrollToTop>
+      <App />
+    </ScrollToTop>
   </BrowserRouter>, document.getElementById('root'));

@@ -13,8 +13,13 @@ class App extends Component {
   render() {
 
     return (
-      <main className="app">
-        <p>útfæra</p>
+        <main className="app">
+        <Navigation />
+        <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/svid/:name" component={School} />
+        <Route component={NotFound} />
+        </Switch>
       </main>
     );
   }
