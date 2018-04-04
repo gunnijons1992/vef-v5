@@ -27,8 +27,6 @@ export default class School extends Component {
   render() {
     const { match } = this.props;
     const svid = match.params.name;
-    console.log(match);
-    console.log(svid);
     return (
 
     <div>
@@ -42,7 +40,6 @@ export default class School extends Component {
           if (error) {
             return (<div>Villa við að sækja gengi</div>);
           }
-          console.log(data.school.departments);
           return (
             <section>
               <h2>{data.school.heading}</h2>
@@ -50,14 +47,19 @@ export default class School extends Component {
               {data.school.departments.map((item, i) => {
                 return  (
                 <li key={i}>
-                <Department
-              course={item.tests.course}
-              name={item.tests.name}
-              students={item.tests.students}
-              date={item.tests.date}
+                <h3>{item.heading}</h3>
+                {data.school.departments.tests.map((item, i) =>  {
+                  return  (
+                  <Department
+              course={item.tests[i].course}
+              name={item.tests[i].name}
+              students={item.tests[i].students}
+              date={item.tests[i].date}
               visible={this.state.visibleNote === svid.id}
               onHeaderClick={(this.onHeaderClick(svid.id))}
-            />
+              />
+            );
+            })}
             </li>
           );
         })}

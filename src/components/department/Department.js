@@ -42,7 +42,12 @@ export default class Exams extends Component {
             <th>Fjöldi</th>
             <th>Dagsetning</th>
           </tr>
-
+          <tr>
+            <th>{course}</th>
+            <th>{name}</th>
+            <th>{students}</th>
+            <th>{date}</th>
+          </tr>
           </tbody>
         </table>
         )}
