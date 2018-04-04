@@ -28,29 +28,32 @@ export default class Exams extends Component {
 }
 
   render() {
-    const { key, title, course, name, students, date, visible, onHeaderClick } = this.props;
 
     return (
       <section className="svid">
-        <h3>{}</h3>
-        {visible && (
+        <div>
         <table>
-          <tbody>
+          <thead>
           <tr>
             <th>Auðkenni</th>
             <th>Námskeið</th>
             <th>Fjöldi</th>
             <th>Dagsetning</th>
           </tr>
-          <tr>
-            <th>{course}</th>
-            <th>{name}</th>
-            <th>{students}</th>
-            <th>{date}</th>
-          </tr>
+          </thead>
+          <tbody>
+            {this.props.tests.map((item) => (
+              <tr>
+              <td>{item.course}</td>
+              <td>{item.name}</td>
+              <td>{item.students}</td>
+              <td>{item.date}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
         )}
+        </div>
       </section>
     );
   }

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import './School.css';
 import Department from '../department/Department.js'
-import Fetch from '../../Fetch';
+const url = process.env.REACT_APP_SERVICE_URL;
 
 /**
  * Í þessum component ætti að vera mest um að vera og séð um að:
@@ -13,9 +12,25 @@ import Fetch from '../../Fetch';
 
 export default class School extends Component {
 
-  state = {
-    visibleSvid: null,
+  state = { data: null, loading: true, error: false, visibleSvid:false }
+
+  async componentDidMount() {
+    try {
+      const data = await this.fetchData();
+      this.setState({ data, loading: false });
+    } catch (e) {
+      console.error('Error fetching data', e);
+      this.setState({ error: true, loading: false });
+    }
   }
+
+  async fetchData() {
+    const { match } = this.props;
+    const datas = match.params.name;
+    const response = await fetch((`${url}${datas}`));
+    const data = await response.json();
+    return data;
+    }
 
   onHeaderClick = (svidId) => {
     return (e) => {
@@ -25,46 +40,30 @@ export default class School extends Component {
   }
 
   render() {
-    const { match } = this.props;
-    const svid = match.params.name;
-    return (
+    const { data, loading, error } = this.state;
+    if (loading) {
+      return (<div>Sæki lista...</div>);
+    }
 
-    <div>
-      <Fetch
-        url={`https://vefforritun2-2018-v4-synilausn.herokuapp.com/${svid}`}
-        render={({ loading, error, data}) => {
-          if (loading) {
-            return (<div>Sæki lista...</div>);
-          }
-
-          if (error) {
-            return (<div>Villa við að sækja gengi</div>);
-          }
-          return (
-            <section>
-              <h2>{data.school.heading}</h2>
-              <ul>
-              {data.school.departments.map((item, i) => {
-                return  (
-                <li key={i}>
-                <h3>{item.heading}</h3>
-                <Department
-              course={item.tests.course}
-              name={item.tests[i].name}
-              students={item.tests[i].students}
-              date={item.tests[i].date}
-              visible={this.state.visibleNote === svid.id}
-              onHeaderClick={(this.onHeaderClick(svid.id))}
-            />
-            </li>
-          );
-        })}
-      </ul>
-            </section>
-          );
-        }}
-        />
-      </div>
-    );
+    if (error) {
+      return (<div>Villa við að sækja gengi</div>);
+    }
+        return (
+          <section className="school">
+            <h2>{data.heading}</h2>
+            {data.school.departments.map((item, i) => {
+              console.log(item.tests);
+              return  (
+              <div key={i}>
+              <h3>{item.heading}</h3>
+              <Department
+                tests={item.tests}
+                onHeaderClick={(this.onHeaderClick(item.heading))}
+                visible={this.state.visibleNote === item.heading} />
+              </div>
+            )
+          })}
+          </section>
+        );
   }
 }
