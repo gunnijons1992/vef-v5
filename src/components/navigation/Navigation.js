@@ -26,6 +26,10 @@ export default class Navigation extends Component {
     },
   }
 
+  changeColor(){
+      this.setState({invisibleSvid: !this.props.visibleSvid})
+  }
+
   async componentDidMount() {
     try {
       const data = await this.fetchData();
@@ -44,22 +48,20 @@ export default class Navigation extends Component {
 
   toggleBold = (id) =>  {
     const element = document.getElementById('felagsvisindasvid');
-    console.log(id)
-    console.log(element);
     //element.style.fontWeight = "bold"
   }
 
+// Finn ekki út hvernig á að toggle bold
   toggleBold2 = (id) => {
     return (e) => {
       const visibleSvid = this.state.visibleSvid === id ? null : id;
       this.setState({ visibleSvid });
-      console.log(visibleSvid);
     }
   }
 
   render() {
     const { data, loading, error } = this.state;
-    const display = this.props.boldOrNot ? 'font-weight: normal' : 'font-weight: bold';
+    const display = this.props.isVisble ? 'font-weight: normal' : 'font-weight: bold';
 
     if (loading) {
       return (<div>Sæki gögn...</div>);
@@ -79,7 +81,7 @@ export default class Navigation extends Component {
                 <li key={i} id={i} className="nav-li">
                   <NavLink to={`${item.slug}`}
                   id={item.slug}
-                  onClick={this.toggleBold(`${item.slug}`)}>
+                  onClick={this.changeColor.bind(this)}>
                   {item.name}</NavLink>
                 </li>
               ))}
