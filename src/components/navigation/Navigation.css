@@ -1,7 +1,13 @@
 /* útfæra */
-font-family: 'Noto Sans', sans-serif;
+@font-face {
+  font-family: sans-serif;
+  src:url('https://fonts.googleapis.com/css?family=Noto+Sans');
+}
 
-font-family: 'Noto Serif', serif;
+@font-face {
+  font-family: serif;
+  src:url('https://fonts.googleapis.com/css?family=Noto+Serif');
+}
 
 body  {
   font-size: 16px;
@@ -10,11 +16,12 @@ body  {
   max-width: 1200px;
 }
   .header  {
+  font-family: serif;
   text-align: center;
   padding: 10px;
   font-size: 32px;
   font-weight: bold;
-  font-family: serif;
+  font-family: sans-serif;
   text-decoration: underline;
   }
 
@@ -24,8 +31,11 @@ ul  {
 .nav-li  {
     display: inline;
     padding: 10px;
-    margin-left: 58px;
+    margin-left: 55px;
     width: 100%;
+    font-family: serif;
+    font-size: 16px;
+    font-weight: normal;
 }
 
 .navigator  {

@@ -28,12 +28,13 @@ export default class Exams extends Component {
   }
 
   render() {
+    const sign = this.props.visibleSvid ? '+' : '-';
     const display = this.props.visibleSvid ? 'none' : 'block';
     return (
       <section className="svid">
-      <h3 onClick={this.props.onHeaderClick} className="note__header">{this.props.name}</h3>
+      <h3 onClick={this.props.onHeaderClick} className="note__header"><span className="plus">{sign}</span>{this.props.name}</h3>
         <div style={{display}}>
-          <table>
+          <table className="table-striped">
             <thead>
               <tr>
                 <th>Auðkenni</th>

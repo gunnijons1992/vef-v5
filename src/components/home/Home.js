@@ -49,11 +49,11 @@ export default class Home extends Component {
       <Helmet title=""/>
         <section>
           <h2>Tölfræði</h2>
-          <p>Fjöldi prófa {data.stats.numTests}</p>
-          <p>Fjöldi nemenda í öllum prófum {data.stats.numStudents}</p>
-          <p>Meðalfjöldi nemenda í prófi {data.stats.averageStudents}</p>
-          <p>Minnsti fjöldi nemenda í prófi {data.stats.min}</p>
-          <p>Mesti fjöldi nemenda í prófi {data.stats.max}</p>
+          <div>Fjöldi prófa : <span>{data.stats.numTests}</span></div>
+          <div>Fjöldi nemenda í öllum prófum : <span>{data.stats.numStudents}</span></div>
+          <div>Meðalfjöldi nemenda í prófi : <span>{data.stats.averageStudents}</span></div>
+          <div>Minnsti fjöldi nemenda í prófi : <span>{data.stats.min}</span></div>
+          <div>Mesti fjöldi nemenda í prófi : <span>{data.stats.max}</span></div>
         </section>
       </div>
         );

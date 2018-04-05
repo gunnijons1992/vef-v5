@@ -67,12 +67,12 @@ export default class School extends Component {
     }
         return (
           <section className="school">
-            <h2>{data.heading}</h2>
+            <h2>{data.school.heading}</h2>
             <Helmet title={data.school.heading} />
 
             {data.school.departments.map((item, i) => {
               return  (
-              <div key={i}>
+              <div className="listi" key={i}>
                 <Department
                   name={item.heading}
                   tests={item.tests}
@@ -81,7 +81,7 @@ export default class School extends Component {
               </div>
             )
           })}
-            <NavLink to='/'>Heim</NavLink>
+            <NavLink to='/' className="home">Heim</NavLink>
           </section>
         );
   }

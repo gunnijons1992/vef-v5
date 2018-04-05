@@ -1,1 +1,38 @@
 /* útfæra */
+@font-face {
+  font-family: sans-serif;
+  src:url('https://fonts.googleapis.com/css?family=Noto+Sans');
+}
+
+@font-face {
+  font-family: serif;
+  src:url('https://fonts.googleapis.com/css?family=Noto+Serif');
+}
+
+body  {
+  font-size: 16px;
+  padding: 10px;
+  margin: 0;
+  max-width: 1200px;
+}
+
+div {
+  font-size: 16px;
+  padding: 10px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+span {
+  font-size: 16px;
+  padding: 10px;
+  font-family: sans-serif;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 32px;
+  padding: 10px;
+  font-family: serif;
+  font-weight: bold;
+}
