@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import './Department.css';
-import Fetch from '../../Fetch';
 
 
 
@@ -18,41 +17,42 @@ export default class Exams extends Component {
     name: PropTypes.string,
     students: PropTypes.string,
     date: PropTypes.instanceOf(Date),
-    visible: PropTypes.bool,
+    visibleSvid: PropTypes.bool,
     onHeaderClick: PropTypes.func,
   }
 
   static defaultProps = {
-  visible: true,
-  onHeaderClick: () => {},
-}
+  visibleSvid: false,
+  onHeaderClick: () => {
+    },
+  }
 
   render() {
-
+    const display = this.props.visibleSvid ? 'none' : 'block';
     return (
       <section className="svid">
-        <div>
-        <table>
-          <thead>
-          <tr>
-            <th>Auðkenni</th>
-            <th>Námskeið</th>
-            <th>Fjöldi</th>
-            <th>Dagsetning</th>
-          </tr>
-          </thead>
-          <tbody>
-            {this.props.tests.map((item) => (
+      <h3 onClick={this.props.onHeaderClick} className="note__header">{this.props.name}</h3>
+        <div style={{display}}>
+          <table>
+            <thead>
               <tr>
-              <td>{item.course}</td>
-              <td>{item.name}</td>
-              <td>{item.students}</td>
-              <td>{item.date}</td>
+                <th>Auðkenni</th>
+                <th>Námskeið</th>
+                <th>Fjöldi</th>
+                <th>Dagsetning</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        )}
+            </thead>
+            <tbody>
+              {this.props.tests.map((item) => (
+                <tr key={item.name}>
+                  <td>{item.course}</td>
+                  <td>{item.name}</td>
+                  <td>{item.students}</td>
+                  <td>{item.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
     );

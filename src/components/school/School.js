@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import './School.css';
-import Department from '../department/Department.js'
+import Department from '../department/Department.js';
+import { NavLink } from 'react-router-dom';
 const url = process.env.REACT_APP_SERVICE_URL;
 
 /**
@@ -11,6 +13,16 @@ const url = process.env.REACT_APP_SERVICE_URL;
  */
 
 export default class School extends Component {
+
+  static propTypes = {
+    title: PropTypes.string,
+    course: PropTypes.string,
+    name: PropTypes.string,
+    students: PropTypes.string,
+    date: PropTypes.instanceOf(Date),
+    visibleSvid: PropTypes.bool,
+    onHeaderClick: PropTypes.func,
+  }
 
   state = { data: null, loading: true, error: false, visibleSvid:false }
 
@@ -24,17 +36,22 @@ export default class School extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.props=(nextProps);
+    this.componentDidMount();
+  }
+
   async fetchData() {
     const { match } = this.props;
     const datas = match.params.name;
     const response = await fetch((`${url}${datas}`));
     const data = await response.json();
     return data;
-    }
+  }
 
-  onHeaderClick = (svidId) => {
+  onHeaderClick = (svidName) => {
     return (e) => {
-      const visibleSvid = this.state.visibleSvid === svidId ? null : svidId;
+      const visibleSvid = this.state.visibleSvid === svidName ? null : svidName;
       this.setState({ visibleSvid });
     }
   }
@@ -51,18 +68,20 @@ export default class School extends Component {
         return (
           <section className="school">
             <h2>{data.heading}</h2>
+            <Helmet title={data.school.heading} />
+
             {data.school.departments.map((item, i) => {
-              console.log(item.tests);
               return  (
               <div key={i}>
-              <h3>{item.heading}</h3>
-              <Department
-                tests={item.tests}
-                onHeaderClick={(this.onHeaderClick(item.heading))}
-                visible={this.state.visibleNote === item.heading} />
+                <Department
+                  name={item.heading}
+                  tests={item.tests}
+                  onHeaderClick={(this.onHeaderClick(item.heading))}
+                  visibleSvid={this.state.visibleSvid !== item.heading} />
               </div>
             )
           })}
+            <NavLink to='/'>Heim</NavLink>
           </section>
         );
   }
